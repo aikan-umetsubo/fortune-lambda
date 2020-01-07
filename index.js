@@ -8,13 +8,10 @@ export function handler(event, context, callback) {
   });
 }
 
-export function response(body, callback) {
+export function response(data, callback) {
   const response = {
     statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
+    body: data
   };
 
   callback(null, response);

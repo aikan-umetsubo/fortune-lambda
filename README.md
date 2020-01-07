@@ -1,4 +1,4 @@
-# fortune-web: Linux fortune for AWS Lambda
+# fortune-lambda: Linux fortune for AWS Lambda
 
 ## Build
 

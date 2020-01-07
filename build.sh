@@ -61,5 +61,4 @@ do
     echo "offensive_$cookie: $count";
 done;
 
-echo
 echo 'Build finished.'
