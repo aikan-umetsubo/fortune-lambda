@@ -20,7 +20,7 @@ functions:
           method: get
     environment:
       art: 459
-      ascii-art: 9
+      ascii_art: 9
       computers: 1020
       cookie: 1139
       definitions: 1104
@@ -38,7 +38,7 @@ functions:
       love: 150
       magic: 28
       medicine: 71
-      men-women: 581
+      men_women: 581
       miscellaneous: 643
       news: 52
       people: 1230
@@ -47,15 +47,15 @@ functions:
       politics: 691
       riddles: 134
       science: 621
-      songs-poems: 718
+      songs_poems: 718
       sports: 146
       startrek: 224
-      translate-me: 18
+      translate_me: 18
       wisdom: 401
       work: 629
       zippy: 547
       offensive_astrology: 41
-      offensive_black-humor: 269
+      offensive_black_humor: 269
       offensive_definitions: 331
       offensive_drugs: 72
       offensive_ethnic: 125
@@ -70,5 +70,5 @@ functions:
       offensive_religion: 225
       offensive_riddles: 266
       offensive_sex: 804
-      offensive_songs-poems: 205
+      offensive_songs_poems: 205
       offensive_vulgarity: 193
