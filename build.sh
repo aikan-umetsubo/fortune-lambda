@@ -2,26 +2,30 @@
 
 echo 'Build started.'
 
+# initialize messages
+rm -rf messages
+rm messages.js
+
 # ------------------------------------------------------------------------------
 
 # make messages from datfiles
 echo 'Started to make messages from datfile.'
-ls datfiles | grep -v offensive | while IFS= read -r file;
+ls datfiles | grep -v offensive | while IFS= read -r category;
 do
-	echo "processing datfile $file ...";
+	echo "processing datfile $category ...";
 	i=0;
 	file_name=`printf '%05d' "$i"`;
-	mkdir -p "messages/$file"
-	while IFS= read -r line;
+	mkdir -p "messages/$category"
+	ls "datfiles/$category" | while IFS= read -r line;
 	do
 		if [ "$line" = '%' ];
 		then
 			i=$((i+1));
 			file_name=`printf '%05d' "$i"`;
 		else
-			printf '%s\n' "$line" >> "messages/$file/$file_name";
+			printf '%s\n' "$line" >> "messages/$category/$file_name";
 		fi
-	done < "datfiles/$file";
+	done;
 done;
 
 echo 'Finished to make messages from datfile.'
@@ -31,22 +35,22 @@ echo 'Finished to make messages from datfile.'
 # make messages from datfiles(offensive)
 echo 'Started to make offensive messages from datfiles.'
 
-ls datfiles/offensive | while IFS= read -r file;
+ls datfiles/offensive | while IFS= read -r category;
 do
-	echo "processing offensive datfile $file ...";
+	echo "processing offensive datfile $category ...";
 	i=0;
 	file_name=`printf '%05d' "$i"`;
-	mkdir -p "messages/offensive/$file"
-	while IFS= read -r line;
+	mkdir -p "messages/offensive/$category"
+	ls "datfiles/offensive/$category" | while IFS= read -r line;
 	do
 		if [ "$line" = '%' ];
 		then
 			i=$((i+1));
 			file_name=`printf '%05d' "$i"`;
 		else
-			printf '%s\n' "$line" >> "messages/offensive/$file/$file_name";
+			printf '%s\n' "$line" >> "messages/offensive/$category/$file_name";
 		fi
-	done < "datfiles/offensive/$file";
+	done;
 done;
 
 echo 'Finished to make offensive messages from datfiles.'
@@ -61,7 +65,8 @@ echo 'export const categories = [' > "$output";
 
 ls 'messages' | grep -v 'offensive' | while read cookie;
 do
-    count=`ls "messages/$cookie" | tail -n 1 | sed 's/^0*//g'`;
+    last_file=`ls "messages/$cookie" | tail -n 1 | sed 's/^0*//g'`;
+    count=`echo $last_file-1 | bc`;
     echo '  {'                    >> "$output";
     echo "    label: '$cookie',"  >> "$output";
     echo "    count: $count,"     >> "$output";
@@ -71,7 +76,8 @@ done;
 
 ls 'messages/offensive' | while read cookie;
 do
-    count=`ls "messages/offensive/$cookie" | tail -n 1 | sed 's/^0*//g'`;
+    last_file=`ls "messages/offensive/$cookie" | tail -n 1 | sed 's/^0*//g'`;
+    count=`echo $last_file-1 | bc`;
     echo '  {'                    >> "$output";
     echo "    label: '$cookie',"  >> "$output";
     echo "    count: $count,"     >> "$output";
