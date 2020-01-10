@@ -2,7 +2,7 @@
 
 echo 'Build started.'
 
-# initialize messages
+# remove previous build artifacts
 rm -rf messages
 rm messages.js
 
@@ -16,7 +16,7 @@ do
 	i=0;
 	file_name=`printf '%05d' "$i"`;
 	mkdir -p "messages/$category"
-	ls "datfiles/$category" | while IFS= read -r line;
+	cat "datfiles/$category" | while IFS= read -r line;
 	do
 		if [ "$line" = '%' ];
 		then
@@ -41,7 +41,7 @@ do
 	i=0;
 	file_name=`printf '%05d' "$i"`;
 	mkdir -p "messages/offensive/$category"
-	ls "datfiles/offensive/$category" | while IFS= read -r line;
+	cat "datfiles/offensive/$category" | while IFS= read -r line;
 	do
 		if [ "$line" = '%' ];
 		then
