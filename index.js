@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('fs');
+const messages = require('./messages');
 
 export function handler(event, context, callback) {
   fs.readFile('./messages/art/00000', (err, data) => {

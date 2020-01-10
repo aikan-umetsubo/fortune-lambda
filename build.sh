@@ -2,9 +2,10 @@
 
 echo 'Build started.'
 
+# ------------------------------------------------------------------------------
+
 # make messages from datfiles
 echo 'Started to make messages from datfile.'
-
 ls datfiles | grep -v offensive | while IFS= read -r file;
 do
 	echo "processing datfile $file ...";
@@ -24,6 +25,8 @@ do
 done;
 
 echo 'Finished to make messages from datfile.'
+
+# ------------------------------------------------------------------------------
 
 # make messages from datfiles(offensive)
 echo 'Started to make offensive messages from datfiles.'
@@ -48,17 +51,36 @@ done;
 
 echo 'Finished to make offensive messages from datfiles.'
 
-# display the number of messages for serverless.yml.
-echo 'Set the environment variable below to serverless.yml.'
+# ------------------------------------------------------------------------------
+
+# make messages.js
+echo 'Started to make messages.js'
+output='messages.js';
+
+echo 'export const categories = [' > "$output";
+
 ls 'messages' | grep -v 'offensive' | while read cookie;
 do
     count=`ls "messages/$cookie" | tail -n 1 | sed 's/^0*//g'`;
-    echo "$cookie: $count";
+    echo '  {'                    >> "$output";
+    echo "    label: '$cookie',"  >> "$output";
+    echo "    count: $count,"     >> "$output";
+    echo '    offensive: false'   >> "$output";
+    echo '  },'                   >> "$output";
 done;
+
 ls 'messages/offensive' | while read cookie;
 do
     count=`ls "messages/offensive/$cookie" | tail -n 1 | sed 's/^0*//g'`;
-    echo "offensive_$cookie: $count";
+    echo '  {'                    >> "$output";
+    echo "    label: '$cookie',"  >> "$output";
+    echo "    count: $count,"     >> "$output";
+    echo '    offensive: true'    >> "$output";
+    echo '  },'                   >> "$output";
 done;
+
+echo '];'                         >> "$output";
+
+# ------------------------------------------------------------------------------
 
 echo 'Build finished.'

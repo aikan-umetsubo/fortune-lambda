@@ -12,63 +12,9 @@ package:
     - messages/**
 
 functions:
-  hello:
+  fortune:
     handler: index.handler
     events:
       - http:
           path: index
           method: get
-    environment:
-      art: 459
-      ascii_art: 9
-      computers: 1020
-      cookie: 1139
-      definitions: 1104
-      drugs: 207
-      education: 202
-      ethnic: 162
-      food: 197
-      fortunes: 432
-      goedel: 53
-      humorists: 195
-      kids: 149
-      law: 201
-      linuxcookie: 104
-      literature: 255
-      love: 150
-      magic: 28
-      medicine: 71
-      men_women: 581
-      miscellaneous: 643
-      news: 52
-      people: 1230
-      pets: 50
-      platitudes: 496
-      politics: 691
-      riddles: 134
-      science: 621
-      songs_poems: 718
-      sports: 146
-      startrek: 224
-      translate_me: 18
-      wisdom: 401
-      work: 629
-      zippy: 547
-      offensive_astrology: 41
-      offensive_black_humor: 269
-      offensive_definitions: 331
-      offensive_drugs: 72
-      offensive_ethnic: 125
-      offensive_hphobia: 39
-      offensive_limerick: 1000
-      offensive_misandry: 22
-      offensive_miscellaneous: 63
-      offensive_misogyny: 59
-      offensive_politics: 348
-      offensive_privates: 131
-      offensive_racism: 2
-      offensive_religion: 225
-      offensive_riddles: 266
-      offensive_sex: 804
-      offensive_songs_poems: 205
-      offensive_vulgarity: 193
