@@ -1,19 +1,38 @@
 'use strict';
 
-const fs = require('fs');
-const selector = require('./src/selector');
+const Logger = require('./src/logger');
+const Reader = require('./src/reader');
+const Selector = require('./src/selector');
 
-export function handler(event, context, callback) {
-  // get randomly selected category and index
-  const selector = selector.setOption("");
-  const filePath = selector.select();
+exports.handler = (event, context, callback) => {
 
-  fs.readFile(filePath, (err, data) => {
-    response(data, callback);
-  });
+  const logger = new Logger();
+  logger.write('event', event);
+  logger.write('context', context);
+
+  // select the message
+  const selector = new Selector(true, false);
+  const cookie = selector.select();
+  logger.write('cookie', cookie);
+
+  // read the message
+  const reader = new Reader(cookie.path);
+  const message = reader.read();
+
+  // respond the message
+  if (message.isSuccess) {
+    callback(null, {
+      message: message.data,
+      category: cookie.category,
+      index: cookie.index,
+      offensive: cookie.offensive
+    });
+  } else {
+    callback(Error(message.data));
+  }
 }
 
-export function response(data, callback) {
+exports.response = (data, callback) => {
   const response = {
     statusCode: 200,
     body: data
