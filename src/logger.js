@@ -6,9 +6,9 @@ module.exports = class Logger {
   // print the message
   write = (msg, obj) => {
     if (!obj) {
-      console.log(msg + ':' + JSON.stringify(obj));
-    } else {
       console.log(msg);
+    } else {
+      console.log(msg + ':' + JSON.stringify(obj));
     }
   }
 

@@ -2,19 +2,21 @@ service: fortune-lambda
 
 provider:
   name: aws
-  runtime: nodejs10.x
+  runtime: nodejs12.x
   region: us-east-1
 
 package:
   include:
     - index.js
-    - src/**
+    - build/**
     - messages/**
+    - src/**
 
 functions:
   fortune:
+    name: fortune-${self:provider.stage}
     handler: index.handler
     events:
       - http:
-          path: index
+          path: /
           method: get

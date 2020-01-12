@@ -8,18 +8,19 @@ module.exports = class Reader {
   }
 
   read() {
-    fs.readFile(this.path, (err, data) => {
-      if (!err) {
-        return {
-          isSuccess: true,
-          data: data
-        };
-      } else {
-        return {
-          isSuccess: false,
-          data: err
-        }
-      }
-    });
+    let content;
+    try {
+      content = fs.readFileSync(this.path, { encoding: 'utf8' });
+    } catch (ex) {
+      return {
+        isSuccess: false,
+        content: JSON.stringify(ex)
+      };
+    }
+
+    return {
+      isSuccess: true,
+      content: content
+    }
   }
 };

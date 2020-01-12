@@ -18,25 +18,21 @@ exports.handler = (event, context, callback) => {
   // read the message
   const reader = new Reader(cookie.path);
   const message = reader.read();
+  logger.write('message', message);
 
   // respond the message
   if (message.isSuccess) {
-    callback(null, {
-      message: message.data,
+    const response = {
+      message: message.content,
       category: cookie.category,
       index: cookie.index,
       offensive: cookie.offensive
-    });
+    }
+    logger.write('response', response);
+
+    callback(null, response);
+
   } else {
     callback(Error(message.data));
   }
-}
-
-exports.response = (data, callback) => {
-  const response = {
-    statusCode: 200,
-    body: data
-  };
-
-  callback(null, response);
-}
+};
