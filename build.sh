@@ -1,10 +1,14 @@
 #!/bin/bash
 
-echo 'Build started.'
+echo 'Build started.';
+
+# constants
+output='messages.js';
 
 # remove previous build artifacts
-rm -rf messages
-rm messages.js
+rm -rf ./messages;
+rm -rf ./build
+mkdir ./build
 
 # ------------------------------------------------------------------------------
 
@@ -59,9 +63,8 @@ echo 'Finished to make offensive messages from datfiles.'
 
 # make messages.js
 echo 'Started to make messages.js'
-output='messages.js';
 
-echo 'export const categories = [' > "$output";
+echo 'exports.categories = ['      > "$output";
 
 ls 'messages' | grep -v 'offensive' | while read cookie;
 do
