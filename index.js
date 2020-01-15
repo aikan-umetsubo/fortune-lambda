@@ -22,12 +22,18 @@ exports.handler = (event, context, callback) => {
 
   // respond the message
   if (message.isSuccess) {
+
     const response = {
-      message: message.content,
-      category: cookie.category,
-      index: cookie.index,
-      offensive: cookie.offensive
+      "isBase64Encoded": false,
+      "statusCode": 200,
+      "headers": {
+        "fortune-category": cookie.category,
+        "fortune-index": cookie.index,
+        "fortune-offensive": cookie.offensive
+      },
+      "body": message.content
     }
+
     logger.write('response', response);
 
     callback(null, response);
