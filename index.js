@@ -33,6 +33,8 @@ exports.handler = (event, context, callback) => {
     callback(null, response);
 
   } else {
+    logger.err(message.data);
+
     callback(Error(message.data));
   }
 };
