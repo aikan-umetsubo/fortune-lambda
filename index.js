@@ -31,7 +31,7 @@ exports.handler = (event, context, callback) => {
         "fortune-index": cookie.index,
         "fortune-offensive": cookie.offensive
       },
-      "body": message.content
+      "body": `{ "body": "${message.content}" }`
     }
 
     logger.write('response', response);
