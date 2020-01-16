@@ -64,31 +64,32 @@ echo 'Finished to make offensive messages from datfiles.'
 # make messages.js
 echo 'Started to make messages.js'
 
-echo 'exports.categories = ['      > "$output";
+echo 'const categories = ['          > "$output";
 
 ls 'messages' | grep -v 'offensive' | while read cookie;
 do
     last_file=`ls "messages/$cookie" | tail -n 1 | sed 's/^0*//g'`;
     count=`echo $last_file-1 | bc`;
-    echo '  {'                    >> "$output";
-    echo "    label: '$cookie',"  >> "$output";
-    echo "    count: $count,"     >> "$output";
-    echo '    offensive: false'   >> "$output";
-    echo '  },'                   >> "$output";
+    echo '  {'                      >> "$output";
+    echo "    label: '$cookie',"    >> "$output";
+    echo "    count: $count,"       >> "$output";
+    echo '    offensive: false'     >> "$output";
+    echo '  },'                     >> "$output";
 done;
 
 ls 'messages/offensive' | while read cookie;
 do
     last_file=`ls "messages/offensive/$cookie" | tail -n 1 | sed 's/^0*//g'`;
     count=`echo $last_file-1 | bc`;
-    echo '  {'                    >> "$output";
-    echo "    label: '$cookie',"  >> "$output";
-    echo "    count: $count,"     >> "$output";
-    echo '    offensive: true'    >> "$output";
-    echo '  },'                   >> "$output";
+    echo '  {'                      >> "$output";
+    echo "    label: '$cookie',"    >> "$output";
+    echo "    count: $count,"       >> "$output";
+    echo '    offensive: true'      >> "$output";
+    echo '  },'                     >> "$output";
 done;
 
-echo '];'                         >> "$output";
+echo '];'                           >> "$output";
+echo 'module.exports = categories;' >> "$output";
 
 # ------------------------------------------------------------------------------
 
