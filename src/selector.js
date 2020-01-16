@@ -42,7 +42,7 @@ module.exports = class Selector {
     return {
       offensive: false,
       category: category.label,
-      index: categoryIndex,
+      index: cookieIndex,
       path: `./build/messages/${category.label}/${("0000" + cookieIndex).slice(-5)}`
     };
   }
@@ -60,7 +60,7 @@ module.exports = class Selector {
     return {
       offensive: true,
       category: category.label,
-      index: categoryIndex,
+      index: cookieIndex,
       path: `./build/messages/offensive/${category.label}/${("0000" + cookieIndex).slice(-5)}`
     };
   }
@@ -82,7 +82,7 @@ module.exports = class Selector {
     return {
       offensive: category.offensive,
       category: category.label,
-      index: categoryIndex,
+      index: cookieIndex,
       path: filePath
     };
   }
