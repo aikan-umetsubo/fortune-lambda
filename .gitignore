@@ -7,3 +7,6 @@ jspm_packages
 
 # build artifacts
 build
+
+# text editor setting directory
+.vscode
