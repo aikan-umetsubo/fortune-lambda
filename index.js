@@ -26,11 +26,13 @@ exports.handler = (event, context, callback) => {
 
   // format the message
   const message = rawMessage.replace(
-    /(\n|\t)/g, (match) => {
+    /(\n|\t|")/g, (match) => {
       if (match === "\n") {
         return "\\n";
       } else if (match === "\t") {
         return "\\t";
+      } else if (match === "\"") {
+        return "\\\"";
       } else {
         return null;
       }
@@ -46,7 +48,7 @@ exports.handler = (event, context, callback) => {
       "fortune-index": cookie.index,
       "fortune-offensive": cookie.offensive
     },
-    "body": `{ "body": "${message}" }`
+    "body": `{ "message": "${message}" }`
   }
 
   logger.write('response', response);
