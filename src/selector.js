@@ -43,7 +43,7 @@ module.exports = class Selector {
       offensive: false,
       category: category.label,
       index: categoryIndex,
-      path: `./messages/${category.label}/${("0000" + cookieIndex).slice(-5)}`
+      path: `./build/messages/${category.label}/${("0000" + cookieIndex).slice(-5)}`
     };
   }
 
@@ -61,7 +61,7 @@ module.exports = class Selector {
       offensive: true,
       category: category.label,
       index: categoryIndex,
-      path: `./messages/offensive/${category.label}/${("0000" + cookieIndex).slice(-5)}`
+      path: `./build/messages/offensive/${category.label}/${("0000" + cookieIndex).slice(-5)}`
     };
   }
 
@@ -75,8 +75,8 @@ module.exports = class Selector {
 
     // generate the file path
     const filePath = category.offensive ?
-      `./messages/offensive/${category.label}/${("0000" + cookieIndex).slice(-5)}` :
-      `./messages/${category.label}/${("0000" + cookieIndex).slice(-5)}`;
+      `./build/messages/offensive/${category.label}/${("0000" + cookieIndex).slice(-5)}` :
+      `./build/messages/${category.label}/${("0000" + cookieIndex).slice(-5)}`;
 
     // return the cookie
     return {

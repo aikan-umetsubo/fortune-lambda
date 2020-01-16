@@ -3,11 +3,11 @@
 echo 'Build started.';
 
 # constants
-output='messages.js';
+js_output='./build/messages.js';
+dir_output='./build/messages';
 
 # remove previous build artifacts
-rm -rf ./messages;
-rm -rf ./build
+rm -rf ./build;
 mkdir ./build
 
 # ------------------------------------------------------------------------------
@@ -19,7 +19,7 @@ do
 	echo "processing datfile $category ...";
 	i=0;
 	file_name=`printf '%05d' "$i"`;
-	mkdir -p "messages/$category"
+	mkdir -p "$dir_output/$category"
 	cat "datfiles/$category" | while IFS= read -r line;
 	do
 		if [ "$line" = '%' ];
@@ -27,7 +27,7 @@ do
 			i=$((i+1));
 			file_name=`printf '%05d' "$i"`;
 		else
-			printf '%s\n' "$line" >> "messages/$category/$file_name";
+			printf '%s\n' "$line" >> "$dir_output/$category/$file_name";
 		fi
 	done;
 done;
@@ -44,7 +44,7 @@ do
 	echo "processing offensive datfile $category ...";
 	i=0;
 	file_name=`printf '%05d' "$i"`;
-	mkdir -p "messages/offensive/$category"
+	mkdir -p "$dir_output/offensive/$category"
 	cat "datfiles/offensive/$category" | while IFS= read -r line;
 	do
 		if [ "$line" = '%' ];
@@ -52,7 +52,7 @@ do
 			i=$((i+1));
 			file_name=`printf '%05d' "$i"`;
 		else
-			printf '%s\n' "$line" >> "messages/offensive/$category/$file_name";
+			printf '%s\n' "$line" >> "$dir_output/offensive/$category/$file_name";
 		fi
 	done;
 done;
@@ -64,32 +64,32 @@ echo 'Finished to make offensive messages from datfiles.'
 # make messages.js
 echo 'Started to make messages.js'
 
-echo 'const categories = ['          > "$output";
+echo 'const categories = ['          > "$js_output";
 
-ls 'messages' | grep -v 'offensive' | while read cookie;
+ls "$dir_output" | grep -v 'offensive' | while read cookie;
 do
-    last_file=`ls "messages/$cookie" | tail -n 1 | sed 's/^0*//g'`;
+    last_file=`ls "$dir_output/$cookie" | tail -n 1 | sed 's/^0*//g'`;
     count=`echo $last_file-1 | bc`;
-    echo '  {'                      >> "$output";
-    echo "    label: '$cookie',"    >> "$output";
-    echo "    count: $count,"       >> "$output";
-    echo '    offensive: false'     >> "$output";
-    echo '  },'                     >> "$output";
+    echo '  {'                      >> "$js_output";
+    echo "    label: '$cookie',"    >> "$js_output";
+    echo "    count: $count,"       >> "$js_output";
+    echo '    offensive: false'     >> "$js_output";
+    echo '  },'                     >> "$js_output";
 done;
 
-ls 'messages/offensive' | while read cookie;
+ls "$dir_output/offensive" | while read cookie;
 do
-    last_file=`ls "messages/offensive/$cookie" | tail -n 1 | sed 's/^0*//g'`;
+    last_file=`ls "$dir_output/offensive/$cookie" | tail -n 1 | sed 's/^0*//g'`;
     count=`echo $last_file-1 | bc`;
-    echo '  {'                      >> "$output";
-    echo "    label: '$cookie',"    >> "$output";
-    echo "    count: $count,"       >> "$output";
-    echo '    offensive: true'      >> "$output";
-    echo '  },'                     >> "$output";
+    echo '  {'                      >> "$js_output";
+    echo "    label: '$cookie',"    >> "$js_output";
+    echo "    count: $count,"       >> "$js_output";
+    echo '    offensive: true'      >> "$js_output";
+    echo '  },'                     >> "$js_output";
 done;
 
-echo '];'                           >> "$output";
-echo 'module.exports = categories;' >> "$output";
+echo '];'                           >> "$js_output";
+echo 'module.exports = categories;' >> "$js_output";
 
 # ------------------------------------------------------------------------------
 
