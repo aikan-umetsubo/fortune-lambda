@@ -17,30 +17,39 @@ exports.handler = (event, context, callback) => {
 
   // read the message
   const reader = new Reader(cookie.path);
-  const message = reader.read();
-  logger.write('message', message);
-
-  // respond the message
-  if (message.isSuccess) {
-
-    const response = {
-      "isBase64Encoded": false,
-      "statusCode": 200,
-      "headers": {
-        "fortune-category": cookie.category,
-        "fortune-index": cookie.index,
-        "fortune-offensive": cookie.offensive
-      },
-      "body": `{ "body": "${message.content}" }`
-    }
-
-    logger.write('response', response);
-
-    callback(null, response);
-
-  } else {
-    logger.err(message.data);
-
+  const result = reader.read();
+  if (!result.isSuccess) {
     callback(Error(message.data));
   }
+  const rawMessage = result.message;
+  logger.write('rawMessage', rawMessage);
+
+  // format the message
+  const message = rawMessage.replace(
+    /(\n|\t)/g, (match) => {
+      if (match === "\n") {
+        return "\\n";
+      } else if (match === "\t") {
+        return "\\t";
+      } else {
+        return null;
+      }
+    }
+  );
+
+  // return the message with metadata
+  const response = {
+    "isBase64Encoded": false,
+    "statusCode": 200,
+    "headers": {
+      "fortune-category": cookie.category,
+      "fortune-index": cookie.index,
+      "fortune-offensive": cookie.offensive
+    },
+    "body": `{ "body": "${content}" }`
+  }
+
+  logger.write('response', response);
+
+  callback(null, response);
 };

@@ -8,9 +8,9 @@ module.exports = class Reader {
   }
 
   read() {
-    let content;
+    let rawContent;
     try {
-      content = fs.readFileSync(this.path, { encoding: 'utf8' });
+      rawContent = fs.readFileSync(this.path, { encoding: 'utf8' })
     } catch (ex) {
       return {
         isSuccess: false,
@@ -20,7 +20,7 @@ module.exports = class Reader {
 
     return {
       isSuccess: true,
-      content: content
+      message: rawContent
     }
   }
 };
