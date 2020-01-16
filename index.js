@@ -11,7 +11,7 @@ exports.handler = (event, context, callback) => {
   logger.write('context', context);
 
   // select the message
-  const selector = new Selector(true, false);
+  const selector = new Selector(true, true);
   const cookie = selector.select();
   logger.write('cookie', cookie);
 
@@ -19,7 +19,7 @@ exports.handler = (event, context, callback) => {
   const reader = new Reader(cookie.path);
   const result = reader.read();
   if (!result.isSuccess) {
-    callback(Error(message.data));
+    callback(Error(result.message));
   }
   const rawMessage = result.message;
   logger.write('rawMessage', rawMessage);
@@ -46,7 +46,7 @@ exports.handler = (event, context, callback) => {
       "fortune-index": cookie.index,
       "fortune-offensive": cookie.offensive
     },
-    "body": `{ "body": "${content}" }`
+    "body": `{ "body": "${message}" }`
   }
 
   logger.write('response', response);

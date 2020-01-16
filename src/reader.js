@@ -14,7 +14,7 @@ module.exports = class Reader {
     } catch (ex) {
       return {
         isSuccess: false,
-        content: JSON.stringify(ex)
+        message: JSON.stringify(ex)
       };
     }
 

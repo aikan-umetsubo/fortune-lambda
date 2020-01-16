@@ -12,6 +12,7 @@ module.exports = class Selector {
 
   select = () => {
     logger.write(`offensive: ${this.offensive}, all: ${this.all}`);
+
     if (this.offensive) {
       if (this.all) {
         return this.selectAll();
@@ -29,29 +30,60 @@ module.exports = class Selector {
   }
 
   selectNormal = () => {
+    // select the category
+    const normalCategories = categories.filter((c) => { return !(c.offensive); })
+    const categoryIndex = Math.floor(Math.random() * normalCategories.length);
+    const category =  normalCategories[categoryIndex];
+
+    // select the cookie
+    const cookieIndex = Math.floor(Math.random() * category.count);
+
+    // return the cookie
     return {
       offensive: false,
-      category: "art",
-      index: "00000",
-      path: `./messages/art/00000`
+      category: category.label,
+      index: categoryIndex,
+      path: `./messages/${category.label}/${("0000" + cookieIndex).slice(-5)}`
     };
   }
 
   selectOffensive = () => {
+    // select the category
+    const offensiveCategories = categories.filter((c) => { return c.offensive; });
+    const categoryIndex = Math.floor(Math.random() * offensiveCategories.length);
+    const category =  offensiveCategories[categoryIndex];
+
+    // select the cookie
+    const cookieIndex = Math.floor(Math.random() * category.count);
+
+    // return the cookie
     return {
       offensive: true,
-      category: "black-humor",
-      index: "00077",
-      path: `./messages/offensive/black-humor/00077`
+      category: category.label,
+      index: categoryIndex,
+      path: `./messages/offensive/${category.label}/${("0000" + cookieIndex).slice(-5)}`
     };
   }
 
   selectAll = () => {
+    // select the category
+    const categoryIndex = Math.floor(Math.random() * categories.length);
+    const category =  categories[categoryIndex];
+
+    // select the cookie
+    const cookieIndex = Math.floor(Math.random() * category.count);
+
+    // generate the file path
+    const filePath = category.offensive ?
+      `./messages/offensive/${category.label}/${("0000" + cookieIndex).slice(-5)}` :
+      `./messages/${category.label}/${("0000" + cookieIndex).slice(-5)}`;
+
+    // return the cookie
     return {
-      offensive: true,
-      category: "definitions",
-      index: "00330",
-      path: `./messages/offensive/definitions/00330`
+      offensive: category.offensive,
+      category: category.label,
+      index: categoryIndex,
+      path: filePath
     };
   }
 };
