@@ -44,6 +44,7 @@ exports.handler = (event, context, callback) => {
     "isBase64Encoded": false,
     "statusCode": 200,
     "headers": {
+      "Access-Control-Allow-Origin": "*",
       "fortune-category": cookie.category,
       "fortune-index": cookie.index,
       "fortune-offensive": cookie.offensive
