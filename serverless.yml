@@ -9,7 +9,6 @@ package:
   include:
     - index.js
     - build/**
-    - messages/**
     - src/**
 
 functions:
@@ -20,3 +19,16 @@ functions:
       - http:
           path: /
           method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - fortune-category
+              - fortune-index
+              - fortune-offensive
+            allowCredentials: false
