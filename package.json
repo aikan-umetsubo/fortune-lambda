@@ -15,7 +15,7 @@
   "author": "aikan-umetsubo",
   "license": "MIT",
   "dependencies": {
-    "serverless": "^1.75.1",
+    "serverless": "^1.79.0",
     "socket.io-stream": "^0.9.1"
   }
 }
