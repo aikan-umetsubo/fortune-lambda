@@ -6,6 +6,11 @@
 2. `aws configure` to set the access key to use Serverless Framework.
 3. `sls deploy` to deploy the application to your AWS account.
 
+## TODO
+
+* Add option(-a, -o)
+* Modify serverless.yml to set appropriate URL(remove `/dev/` )
+
 ## License
 
 All the files in the datfiles directory were copied from the source code of
