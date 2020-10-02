@@ -8,11 +8,6 @@
 4. `sls deploy` to deploy the application to your AWS account.
 5. To execute, just send GET request to the endpoint. You can specify the options by path parameter as `http://endpoint/{options}` .
 
-## TODO
-
-* Add search feature
-* Modify serverless.yml to set appropriate URL(remove `/dev/` )
-
 ## License
 
 All the files in the datfiles directory were copied from the source code of fortune-mod 9708, which I find out in ibiblio.org.
