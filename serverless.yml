@@ -28,6 +28,22 @@ functions:
     disableLogs: false
     events:
       - http:
+          path: /
+          method: get
+          cors:
+            origin: '*'
+            headers:
+              - Content-Type
+              - X-Amz-Date
+              - Authorization
+              - X-Api-Key
+              - X-Amz-Security-Token
+              - X-Amz-User-Agent
+              - fortune-category
+              - fortune-index
+              - fortune-offensive
+          allowCredentials: false
+      - http:
           path: /{option}
           method: get
           cors:
@@ -42,4 +58,4 @@ functions:
               - fortune-category
               - fortune-index
               - fortune-offensive
-            allowCredentials: false
+          allowCredentials: false

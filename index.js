@@ -1,8 +1,8 @@
 'use strict';
 
-const Logger = require('./src/logger');
-const Reader = require('./src/reader');
-const Selector = require('./src/selector');
+const Logger = require('./src/common/logger');
+const Reader = require('./src/repository/reader');
+const Selector = require('./src/service/selector');
 
 const logger = new Logger();
 
@@ -10,8 +10,11 @@ exports.handler = (event, context, callback) => {
 
   logger.write('execution started', { "event": event, "context": context });
 
+  // get option
+  const option = event.path.replace("/", "");
+
   // select the message
-  const selector = new Selector(true, true);
+  const selector = new Selector(option);
   const cookie = selector.select();
   logger.write('selected cookie', cookie);
 
