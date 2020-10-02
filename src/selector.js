@@ -13,77 +13,24 @@ module.exports = class Selector {
   select = () => {
     logger.write(`offensive: ${this.offensive}, all: ${this.all}`);
 
-    if (this.offensive) {
-      if (this.all) {
-        return this.selectAll();
-      } else {
-        logger.write('come');
-        return this.selectOffensive();
-      }
-    } else {
-      if (this.all) {
-        return this.selectAll();
-      } else {
-        return this.selectNormal();
-      }
-    }
-  }
+    // select the category randomly
+    const filteredCategories = this.all ?
+      categories :
+      categories.filter((c) => { return c.offensive == this.offensive });
+    const categoryIndex = Math.floor(Math.random() * filteredCategories.length);
+    const category =  filteredCategories[categoryIndex];
 
-  selectNormal = () => {
-    // select the category
-    const normalCategories = categories.filter((c) => { return !(c.offensive); })
-    const categoryIndex = Math.floor(Math.random() * normalCategories.length);
-    const category =  normalCategories[categoryIndex];
-
-    // select the cookie
+    // select the cookie randomly
     const cookieIndex = Math.floor(Math.random() * category.count);
-
-    // return the cookie
-    return {
-      offensive: false,
-      category: category.label,
-      index: cookieIndex,
-      path: `./build/messages/${category.label}/${("0000" + cookieIndex).slice(-5)}`
-    };
-  }
-
-  selectOffensive = () => {
-    // select the category
-    const offensiveCategories = categories.filter((c) => { return c.offensive; });
-    const categoryIndex = Math.floor(Math.random() * offensiveCategories.length);
-    const category =  offensiveCategories[categoryIndex];
-
-    // select the cookie
-    const cookieIndex = Math.floor(Math.random() * category.count);
-
-    // return the cookie
-    return {
-      offensive: true,
-      category: category.label,
-      index: cookieIndex,
-      path: `./build/messages/offensive/${category.label}/${("0000" + cookieIndex).slice(-5)}`
-    };
-  }
-
-  selectAll = () => {
-    // select the category
-    const categoryIndex = Math.floor(Math.random() * categories.length);
-    const category =  categories[categoryIndex];
-
-    // select the cookie
-    const cookieIndex = Math.floor(Math.random() * category.count);
-
-    // generate the file path
-    const filePath = category.offensive ?
-      `./build/messages/offensive/${category.label}/${("0000" + cookieIndex).slice(-5)}` :
-      `./build/messages/${category.label}/${("0000" + cookieIndex).slice(-5)}`;
 
     // return the cookie
     return {
       offensive: category.offensive,
       category: category.label,
       index: cookieIndex,
-      path: filePath
+      path: category.offensive ?
+        `./build/messages/offensive/${category.label}/${("0000" + cookieIndex).slice(-5)}` :
+        `./build/messages/${category.label}/${("0000" + cookieIndex).slice(-5)}`
     };
   }
-};
+}

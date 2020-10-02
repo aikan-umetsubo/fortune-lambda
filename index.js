@@ -4,38 +4,30 @@ const Logger = require('./src/logger');
 const Reader = require('./src/reader');
 const Selector = require('./src/selector');
 
+const logger = new Logger();
+
 exports.handler = (event, context, callback) => {
 
-  const logger = new Logger();
-  logger.write('event', event);
-  logger.write('context', context);
+  logger.write('execution started', { "event": event, "context": context });
 
   // select the message
   const selector = new Selector(true, true);
   const cookie = selector.select();
-  logger.write('cookie', cookie);
+  logger.write('selected cookie', cookie);
 
   // read the message
   const reader = new Reader(cookie.path);
   const result = reader.read();
-  if (!result.isSuccess) {
+  if (!result.isSuccess || !result.message) {
     callback(Error(result.message));
   }
-  const rawMessage = result.message;
-  logger.write('rawMessage', rawMessage);
+  logger.write('raw message', result.message);
 
   // format the message
-  const message = rawMessage.replace(
+  const message = result.message.replace(
     /(\n|\t|")/g, (match) => {
-      if (match === "\n") {
-        return "\\n";
-      } else if (match === "\t") {
-        return "\\t";
-      } else if (match === "\"") {
-        return "\\\"";
-      } else {
-        return null;
-      }
+      const replaceRule = { "\n": "\\n", "\r": "\\r", "\"": "\\\"" };
+      return replaceRule[match];
     }
   );
 
@@ -52,7 +44,7 @@ exports.handler = (event, context, callback) => {
     "body": `{ "message": "${message}" }`
   }
 
-  logger.write('response', response);
+  logger.write('execution finished', { "response": response });
 
   callback(null, response);
 };
