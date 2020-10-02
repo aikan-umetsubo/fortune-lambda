@@ -10,14 +10,25 @@ package:
     - index.js
     - build/**
     - src/**
+  exclude:
+    - .**
+    - datfiles/**
+    - node_modules/**
+    - LICENSE
+    - README.md
+    - build.sh
+    - package.json
+    - package-lock.json
 
 functions:
   fortune:
-    name: fortune-${self:provider.stage}
     handler: index.handler
+    name: fortune-${self:provider.stage}
+    description: Linux fortune for AWS Lambda
+    disableLogs: false
     events:
       - http:
-          path: /
+          path: /{option}
           method: get
           cors:
             origin: '*'
