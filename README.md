@@ -1,14 +1,21 @@
 # fortune-lambda: Linux fortune for AWS Lambda
 
-## How to build and deploy
+## manual
+### How to build and deploy
 
-1. `npm run build` to make the messages.
-2. `aws configure` to set the access key to use Serverless Framework.
-3. `sls deploy` to deploy the application to your AWS account.
+1. Modify the files in `datfile` if needed.
+2. `npm run build` to make the messages.
+3. `aws configure` to set the access key to use Serverless Framework.
+4. `sls deploy` to deploy the application to your AWS account.
+
+### Execute
+
+Just send GET request to the endpoint. You can specify the options by path parameter
+as `http://endpoint/{options}` .
 
 ## TODO
 
-* Add option(-a, -o)
+* Add search feature
 * Modify serverless.yml to set appropriate URL(remove `/dev/` )
 
 ## License
