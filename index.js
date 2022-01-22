@@ -1,8 +1,8 @@
 'use strict';
 
-const Logger = require('./src/common/logger');
-const Reader = require('./src/repository/reader');
-const Selector = require('./src/service/selector');
+const Logger = require('./src/logger');
+const File = require('./src/file');
+const Selector = require('./src/selector');
 
 const logger = new Logger();
 
@@ -19,8 +19,8 @@ exports.handler = (event, context, callback) => {
   logger.write('selected cookie', cookie);
 
   // read the message
-  const reader = new Reader(cookie.path);
-  const result = reader.read();
+  const file = new File(cookie.path);
+  const result = file.readAll();
   if (!result.isSuccess || !result.message) {
     callback(Error(result.message));
   }
