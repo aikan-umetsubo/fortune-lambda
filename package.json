@@ -19,7 +19,7 @@
     "url": "https://github.com/aikan-umetsubo/fortune-lambda.git"
   },
   "dependencies": {
-    "serverless": "^1.83.0",
+    "serverless": "^2.72.1",
     "socket.io-stream": "^0.9.1"
   }
 }
