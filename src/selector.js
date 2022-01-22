@@ -1,7 +1,7 @@
 'use strict';
 
-const categories = require('../../build/messages');
-const Logger = require('../common/logger');
+const categories = require('../build/messages');
+const Logger = require('./logger');
 const logger = new Logger();
 
 module.exports = class Selector {

@@ -2,12 +2,12 @@
 
 const fs = require('fs');
 
-module.exports = class Reader {
+module.exports = class File {
   constructor(path) {
     this.path = path;
   }
 
-  read() {
+  readAll() {
     try {
       let rawContent = fs.readFileSync(this.path, { encoding: 'utf8' })
       return {
