@@ -19,6 +19,6 @@
     "url": "https://github.com/aikan-umetsubo/fortune-lambda.git"
   },
   "dependencies": {
-    "serverless": "^2.72.3"
+    "serverless": "^3.17.0"
   }
 }
